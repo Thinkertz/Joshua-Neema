@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua & Neema - Save the Date</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .save-button {
+            display: inline-block;
+            padding: 15px 25px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Joshua & Neema</h1>
+
+    <p>💍 SAVE THE DATE</p>
+
+    <h2>23 August 2026</h2>
+
+    <p>We would love to celebrate this special day with you.</p>
+
+    <a href="javascript:addToCalendar()" class="save-button">
+        📅 Add to Calendar
+    </a>
+
+    <script>
+        function addToCalendar() {
+
+            const event = {
+                title: "Joshua & Neema — Wedding",
+                start: "20260823T100000",
+                end: "20260823T160000",
+                location: "Wedding Venue, Dar es Salaam, Tanzania",
+                description: "Wedding celebration of Joshua & Neema."
+            };
+
+            const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Joshua & Neema//Wedding//EN
+BEGIN:VEVENT
+UID:${Date.now()}@joshua-neema.com
+DTSTAMP:20260817T000000Z
+DTSTART:${event.start}
+DTEND:${event.end}
+SUMMARY:${event.title}
+LOCATION:${event.location}
+DESCRIPTION:${event.description}
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([ics], {
+                type: "text/calendar;charset=utf-8"
+            });
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "Joshua-Neema-Wedding.ics";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+</body>
+</html>
